@@ -38,11 +38,29 @@ class UserController {
       let user = await UserModel.findByQueries(userData);
       if (user) {
         let token = generateToken(user);
-        res.send({ status: "Success", token: token, uid: user.id });
+        res.send({
+          status: "Success",
+          token: token,
+          uid: user.id,
+          role: user.role,
+        });
         console.log(user);
       } else {
         res.send({ status: "Failed", message: "User Not Found" });
       }
+    } catch (e) {
+      res.send({ status: "Failed", message: e.message });
+    }
+  }
+
+  async getAllStudents(req, res) {
+    try {
+      const query = { role: "STUDENT" };
+      let student = await UserModel.findsByQueries(query);
+      res.send({
+        status: "Success",
+        data: student,
+      });
     } catch (e) {
       res.send({ status: "Failed", message: e.message });
     }

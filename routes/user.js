@@ -12,4 +12,8 @@ userRouter.post("/signup", (req, res) => {
   UserController.registerUser(req, res);
 });
 
+userRouter.get("/allstudent", (req, res) => {
+  UserController.getAllStudents(req, res);
+});
+
 export default userRouter;
